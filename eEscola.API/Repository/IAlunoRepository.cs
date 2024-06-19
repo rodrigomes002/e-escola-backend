@@ -4,7 +4,7 @@ namespace eEscola.API.Repository
 {
     public interface IAlunoRepository
     {
-        Task<List<Aluno>> GetAll();
+        Task<IEnumerable<Aluno>> GetAll();
         Task<Aluno> GetById(int id);
         Task<bool> Add(Aluno aluno);
         Task<bool> Edit(Aluno aluno);

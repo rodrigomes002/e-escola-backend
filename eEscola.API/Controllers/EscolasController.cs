@@ -9,6 +9,7 @@ namespace eEscola.API.Controllers
     public class EscolasController : ControllerBase
     {
         private readonly IEscolaRepository _escolaRepository;
+
         public EscolasController(IEscolaRepository escolaRepository)
         {
             _escolaRepository = escolaRepository;
