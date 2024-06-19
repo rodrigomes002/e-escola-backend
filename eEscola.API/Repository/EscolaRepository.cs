@@ -46,13 +46,13 @@ namespace eEscola.API.Repository
             return result > 0;
         }
 
-        public async Task<List<Escola>> GetAll()
+        public async Task<IEnumerable<Escola>> GetAll()
         {
             await using var conexao = new NpgsqlConnection("Server=localhost;Port=5432;Database=eEscola;User Id=postgres;Password=#C4l3b3018;");
 
             var escola = await conexao.QueryAsync<Escola>("SELECT * FROM tb_escola");
 
-            return escola.ToList();
+            return escola;
         }
 
         public async Task<Escola> GetById(int id)
@@ -63,6 +63,5 @@ namespace eEscola.API.Repository
 
             return escola;
         }
-
     }
 }
