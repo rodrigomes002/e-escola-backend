@@ -1,3 +1,4 @@
+using eEscola.API.Interfaces;
 using eEscola.API.Repository;
 
 var builder = WebApplication.CreateBuilder(args);

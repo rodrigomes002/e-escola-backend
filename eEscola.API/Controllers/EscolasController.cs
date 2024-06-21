@@ -1,5 +1,5 @@
-﻿using eEscola.API.Models;
-using eEscola.API.Repository;
+﻿using eEscola.API.Interfaces;
+using eEscola.API.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eEscola.API.Controllers
