@@ -1,6 +1,6 @@
 ﻿using Castle.Components.DictionaryAdapter.Xml;
+using eEscola.API.Interfaces;
 using eEscola.API.Models;
-using eEscola.API.Repository;
 using Moq;
 
 namespace eEscola.test.Repositories

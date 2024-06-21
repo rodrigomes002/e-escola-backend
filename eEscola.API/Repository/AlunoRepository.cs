@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using eEscola.API.Interfaces;
 using eEscola.API.Models;
 using Npgsql;
 
