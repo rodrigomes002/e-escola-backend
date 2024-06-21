@@ -4,64 +4,64 @@ using Npgsql;
 
 namespace eEscola.API.Repository
 {
-    public class EscolaRepository : IEscolaRepository
+    public class AlunoRepository : IAlunoRepository
     {
-        public async Task<bool> Add(Escola escola)
+        public async Task<bool> Add(Aluno aluno)
         {
             await using var conexao = new NpgsqlConnection("Server=localhost;Port=5432;Database=eEscola;User Id=postgres;Password=#C4l3b3018;");
 
             var param = new
             {
-                Nome = escola.Nome,
-                CNPJ = escola.CNPJ
+                Nome = aluno.Nome,
+                CPF = aluno.CPF
             };
 
-            int result = await conexao.ExecuteAsync("INSERT INTO tb_escola(nome,cnpj) VALUES (@Nome,@CNPJ)", param);
+            int result = await conexao.ExecuteAsync("INSERT INTO tb_aluno(nome,cpf) VALUES (@Nome,@CPF)", param);
 
-            return result > 0;  
+            return result > 0;
         }
 
         public async Task<bool> Delete(int id)
         {
             await using var conexao = new NpgsqlConnection("Server=localhost;Port=5432;Database=eEscola;User Id=postgres;Password=#C4l3b3018;");
 
-            int result = await conexao.ExecuteAsync("DELETE FROM tb_escola WHERE id=@Id", new { Id = id });
+            int result = await conexao.ExecuteAsync("DELETE FROM tb_aluno WHERE id=@Id", new { Id = id });
 
             return result > 0;
         }
 
-        public async Task<bool> Edit(Escola escola)
+        public async Task<bool> Edit(Aluno aluno)
         {
             await using var conexao = new NpgsqlConnection("Server=localhost;Port=5432;Database=eEscola;User Id=postgres;Password=#C4l3b3018;");
 
             var param = new
             {
-                Id = escola.Id,
-                Nome = escola.Nome,
-                CNPJ = escola.CNPJ                
+                Id = aluno.Id,
+                Nome = aluno.Nome,
+                CPF = aluno.CPF
             };
 
-            int result = await conexao.ExecuteAsync("UPDATE tb_escola SET nome=@Nome, cnpj=@CNPJ WHERE id=@Id", param);
+            int result = await conexao.ExecuteAsync("UPDATE tb_aluno SET nome=@Nome, cpf=@CPF WHERE id=@Id", param);
 
             return result > 0;
         }
 
-        public async Task<IEnumerable<Escola>> GetAll()
+        public async Task<IEnumerable<Aluno>> GetAll()
         {
             await using var conexao = new NpgsqlConnection("Server=localhost;Port=5432;Database=eEscola;User Id=postgres;Password=#C4l3b3018;");
 
-            var escola = await conexao.QueryAsync<Escola>("SELECT * FROM tb_escola");
+            var aluno = await conexao.QueryAsync<Aluno>("SELECT * FROM tb_aluno");
 
-            return escola;
+            return aluno;
         }
 
-        public async Task<Escola> GetById(int id)
+        public async Task<Aluno> GetById(int id)
         {
             await using var conexao = new NpgsqlConnection("Server=localhost;Port=5432;Database=eEscola;User Id=postgres;Password=#C4l3b3018;");
 
-            var escola = await conexao.QueryFirstOrDefaultAsync<Escola>("SELECT * FROM tb_escola WHERE id=@Id", new { Id = id });
-
-            return escola;
+            var aluno = await conexao.QueryFirstOrDefaultAsync<Aluno>("SELECT * FROM tb_aluno WHERE id=@id", new { Id = id });
+            
+            return aluno;
         }
     }
 }
