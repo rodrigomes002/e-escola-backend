@@ -1,6 +1,6 @@
 ﻿using eEscola.API.Models;
 
-namespace eEscola.API.Repository
+namespace eEscola.API.Interfaces
 {
     public interface IAlunoRepository
     {
