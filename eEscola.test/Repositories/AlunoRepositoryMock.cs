@@ -1,5 +1,4 @@
-﻿    using Castle.Components.DictionaryAdapter.Xml;
-using eEscola.API.Interfaces;
+﻿using eEscola.API.Interfaces;
 using eEscola.API.Models;
 using Moq;
 
