@@ -37,7 +37,6 @@ namespace eEscola.API.Controllers
         public async Task<IActionResult> Put(int id, [FromBody] Disciplina disciplina)
         {
             var disciplinaDb = await _disciplinaRepository.GetById(id);
-            disciplinaDb.Id = disciplina.Id;
             disciplinaDb.Nome = disciplina.Nome;
 
             if (await _disciplinaRepository.Edit(disciplinaDb))
