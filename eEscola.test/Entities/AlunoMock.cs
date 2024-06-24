@@ -2,12 +2,6 @@
 {
     public static class AlunoMock
     {
-
-        public static Aluno? AlunoNull()
-        {
-            return null;
-        }
-
         public static Aluno Aluno()
         {
             var aluno = new Aluno();
@@ -16,6 +10,11 @@
             aluno.CPF = 182736817263;
 
             return aluno;
+        }
+
+        public static Aluno? AlunoNull()
+        {
+            return null;
         }
 
         public static IEnumerable<Aluno> AlunoList()

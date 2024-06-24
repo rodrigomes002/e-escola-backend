@@ -1,57 +1,63 @@
 ﻿using eEscola.API.Interfaces;
 using eEscola.API.Models;
+using eEscola.test.Entities;
 using Moq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace eEscola.test.Repositories
 {
-    public class AlunoRepositoryMock : Mock<IAlunoRepository>
+    public class DisciplinaRepositoryMock : Mock<IDisciplinaRepository>
     {
-        public AlunoRepositoryMock ProcurarAluno()
+        public DisciplinaRepositoryMock ProcurarDisplina()
         {
             Setup(repository => repository.GetAll())
-                .ReturnsAsync(AlunoMock.AlunoList())
+                .ReturnsAsync(DisciplinaMock.DisciplinaList())
                 .Verifiable();
 
             return this;
         }
 
-        public AlunoRepositoryMock CadastroAluno_Sucesso()
+        public DisciplinaRepositoryMock CadastroDisciplina_Sucesso()
         {
-            Setup(repository => repository.Add(It.IsAny<Aluno>()))
+            Setup(repository => repository.Add(It.IsAny<Disciplina>()))
                 .ReturnsAsync(true)
                 .Verifiable();
 
             return this;
         }
 
-        public AlunoRepositoryMock CadastroAluno_Falha()
+        public DisciplinaRepositoryMock CadastroDisciplina_Falha()
         {
-            Setup(repository => repository.Add(It.IsAny<Aluno>()))
+            Setup(repository => repository.Add(It.IsAny<Disciplina>()))
                 .ReturnsAsync(false)
                 .Verifiable();
 
             return this;
         }
 
-        public AlunoRepositoryMock EditarAluno_Sucesso()
+        public DisciplinaRepositoryMock EditarDisciplina_Sucesso()
         {
-            Setup(repository => repository.Edit(It.IsAny<Aluno>()))
+            Setup(repository => repository.Edit(It.IsAny<Disciplina>()))
                 .ReturnsAsync(true)
                 .Verifiable();
 
             return this;
         }
 
-        public AlunoRepositoryMock EditarAluno_Falha()
+        public DisciplinaRepositoryMock EditarDisciplina_Falha()
         {
-            Setup(repository => repository.Edit(It.IsAny<Aluno>()))
+            Setup(repository => repository.Edit(It.IsAny<Disciplina>()))
                 .ReturnsAsync(false)
                 .Verifiable();
 
             return this;
         }
 
-        public AlunoRepositoryMock DeletarAluno_Sucesso()
+        public DisciplinaRepositoryMock DeletarDisciplina_Sucesso()
         {
             Setup(repository => repository.Delete(It.IsAny<int>()))
                 .ReturnsAsync(true)
@@ -60,7 +66,7 @@ namespace eEscola.test.Repositories
             return this;
         }
 
-        public AlunoRepositoryMock DeletarAluno_Falha()
+        public DisciplinaRepositoryMock DeletarDisciplina_Falha()
         {
             Setup(repository => repository.Delete(It.IsAny<int>()))
                 .ReturnsAsync(false)
@@ -69,19 +75,19 @@ namespace eEscola.test.Repositories
             return this;
         }
 
-        public AlunoRepositoryMock ProcurarAlunoPorId_Sucesso()
+        public DisciplinaRepositoryMock ProcurarDisciplinaPorId_Sucesso()
         {
             Setup(repository => repository.GetById(It.IsAny<int>()))
-                .ReturnsAsync(AlunoMock.Aluno)
+                .ReturnsAsync(DisciplinaMock.Disciplina())
                 .Verifiable();
 
             return this;
         }
 
-        public AlunoRepositoryMock ProcurarAlunoPorId_Falha()
+        public DisciplinaRepositoryMock ProcurarDisciplinaPorId_Falha()
         {
             Setup(repository => repository.GetById(It.IsAny<int>()))
-                .ReturnsAsync(AlunoMock.AlunoNull)
+                .ReturnsAsync(DisciplinaMock.DisciplinaNull())
                 .Verifiable();
 
             return this;
