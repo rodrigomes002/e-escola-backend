@@ -1,9 +1,9 @@
 ﻿using eEscola.API.Controllers;
-using eEscola.API.Models;
+using eEscola.test.Entities;
 using eEscola.test.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
-namespace eEscola.test
+namespace eEscola.test.Controllers
 {
     public class AlunosControllerTest
     {
