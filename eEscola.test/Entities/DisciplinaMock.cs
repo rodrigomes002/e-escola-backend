@@ -1,6 +1,6 @@
 ﻿using eEscola.API.Models;
 
-namespace eEscola.test.Entities
+namespace eEscola.Test.Entities
 {
     public static class DisciplinaMock
     {

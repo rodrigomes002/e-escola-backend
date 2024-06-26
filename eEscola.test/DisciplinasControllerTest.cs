@@ -1,15 +1,9 @@
 ﻿using eEscola.API.Controllers;
-using eEscola.API.Models;
-using eEscola.test.Entities;
-using eEscola.test.Repositories;
+using eEscola.Test.Entities;
+using eEscola.Test.Repositories;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace eEscola.test
+namespace eEscola.Test
 {
     public class DisciplinasControllerTest
     {

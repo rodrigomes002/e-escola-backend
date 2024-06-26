@@ -1,9 +1,9 @@
 ﻿using eEscola.API.Interfaces;
 using eEscola.API.Models;
-using eEscola.test.Entities;
+using eEscola.Test.Entities;
 using Moq;
 
-namespace eEscola.test.Repositories
+namespace eEscola.Test.Repositories
 {
     public class DisciplinaRepositoryMock : Mock<IDisciplinaRepository>
     {
