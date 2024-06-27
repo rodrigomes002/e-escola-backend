@@ -5,7 +5,7 @@ VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eEscola.API", "eEscola.API\eEscola.API.csproj", "{F2FE1DB4-12C4-42B2-9F7B-F16CAFF24A7A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eEscola.test", "eEscola.test\eEscola.test.csproj", "{3A7D6A33-A2FF-455C-B404-B40D826F9F91}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eEscola.Test", "eEscola.test\eEscola.Test.csproj", "{3A7D6A33-A2FF-455C-B404-B40D826F9F91}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
