@@ -1,6 +1,7 @@
-﻿using eEscola.API.Models.Enums;
+﻿using eEscola.Domain.Entities;
+using eEscola.Domain.Entities.Enums;
 
-namespace eEscola.API.Models
+namespace eEscola.Domain.Entities
 {
     public class Boletim
     {

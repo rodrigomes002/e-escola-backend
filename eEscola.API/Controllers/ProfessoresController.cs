@@ -1,6 +1,4 @@
-﻿using eEscola.API.Interfaces;
-using eEscola.API.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace eEscola.API.Controllers
 {

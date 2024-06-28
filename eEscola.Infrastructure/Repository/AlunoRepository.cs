@@ -1,9 +1,9 @@
 ﻿using Dapper;
-using eEscola.API.Interfaces;
-using eEscola.API.Models;
+using eEscola.Domain.Entities;
+using eEscola.Domain.Interfaces;
 using Npgsql;
 
-namespace eEscola.API.Repository
+namespace eEscola.Infrastructure.Repository
 {
     public class AlunoRepository : IAlunoRepository
     {
@@ -61,7 +61,7 @@ namespace eEscola.API.Repository
             await using var conexao = new NpgsqlConnection("Server=localhost;Port=5432;Database=eEscola;User Id=postgres;Password=#C4l3b3018;");
 
             var aluno = await conexao.QueryFirstOrDefaultAsync<Aluno>("SELECT * FROM tb_aluno WHERE id=@id", new { Id = id });
-            
+
             return aluno;
         }
     }

@@ -1,4 +1,4 @@
-﻿namespace eEscola.API.Models
+﻿namespace eEscola.Domain.Entities
 {
     public class Escola
     {

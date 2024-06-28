@@ -1,6 +1,6 @@
-﻿using eEscola.API.Interfaces;
-using eEscola.API.Models;
-using Microsoft.AspNetCore.Http;
+﻿using eEscola.API.Models;
+using eEscola.Application;
+using eEscola.Application.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eEscola.API.Controllers
@@ -9,22 +9,22 @@ namespace eEscola.API.Controllers
     [ApiController]
     public class AlunosController : ControllerBase
     {
-        private readonly IAlunoRepository _alunoRepository;
-        public AlunosController(IAlunoRepository alunoRepository)
+        private readonly IAlunoApplication _alunoApplication;
+        public AlunosController(IAlunoApplication alunoApplication)
         {
-            _alunoRepository = alunoRepository;
+            _alunoApplication = alunoApplication;
         }
 
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            return Ok(await _alunoRepository.GetAll());
+            return Ok(await _alunoApplication.GetAll());
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] Aluno aluno)
+        public async Task<IActionResult> Post([FromBody] AlunoModel aluno)
         {
-            if (await _alunoRepository.Add(aluno))
+            if (await _alunoApplication.Add(aluno))
             {
                 return Ok("Cadastro realizado com sucesso!");
             }
@@ -33,13 +33,13 @@ namespace eEscola.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] Aluno aluno)
+        public async Task<IActionResult> Put(int id, [FromBody] AlunoModel aluno)
         {
-            var alunoDb = await _alunoRepository.GetById(id);
+            var alunoDb = await _alunoApplication.GetById(id);
             alunoDb.Nome = aluno.Nome;
             aluno.CPF = alunoDb.CPF;
 
-            if (await _alunoRepository.Edit(alunoDb))
+            if (await _alunoApplication.Edit(alunoDb))
             {
                 return Ok("Update realizado com sucesso!");
             }
@@ -50,11 +50,11 @@ namespace eEscola.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var alunoDb = await _alunoRepository.GetById(id);
+            var alunoDb = await _alunoApplication.GetById(id);
 
             if (alunoDb is not null)
             {
-                await _alunoRepository.Delete(id);
+                await _alunoApplication.Delete(id);
                 return Ok("Excluído com sucesso!");
             }
 
