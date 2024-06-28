@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\eEscola.Application\eEscola.Application.csproj" />
+    <ProjectReference Include="..\eEscola.Infrastructure\eEscola.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

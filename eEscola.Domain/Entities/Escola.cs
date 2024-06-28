@@ -1,8 +1,7 @@
 ﻿namespace eEscola.Domain.Entities
 {
-    public class Escola
+    public class Escola : Entity
     {
-        public int Id { get; set; }
         public string Nome { get; set; }
         public long CNPJ { get; set; }
     }

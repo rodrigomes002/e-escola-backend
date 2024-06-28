@@ -1,8 +1,7 @@
 ﻿namespace eEscola.Domain.Entities
 {
-    public class Disciplina
+    public class Disciplina : Entity
     {
-        public int Id { get; set; }
         public string Nome { get; set; }
     }
 }

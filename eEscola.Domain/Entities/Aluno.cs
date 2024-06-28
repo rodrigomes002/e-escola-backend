@@ -1,8 +1,9 @@
-﻿namespace eEscola.Domain.Entities
+﻿using Flunt.Validations;
+
+namespace eEscola.Domain.Entities
 {
-    public class Aluno
+    public class Aluno : Entity
     {
-        public int Id { get; set; }
         public string Nome { get; set; }
         public long CPF { get; set; }
 
@@ -11,10 +12,10 @@
             Nome = nome;
             CPF = cpf;
 
-            if (Nome is null)
-                throw new ArgumentNullException("Nome deve ser preenchido!");
-            if (CPF < 11)
-                throw new ArgumentNullException("CPF incompleto!");
+            AddNotifications(new Contract<Aluno>()
+                .Requires()
+                .IsNotNullOrWhiteSpace(Nome, nameof(Nome), $"O campo {nameof(Nome)} é obrigatório.")
+                );
         }
     }
 }

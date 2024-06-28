@@ -1,4 +1,5 @@
 ﻿using eEscola.Application.Models;
+using eEscola.Application.Results;
 using eEscola.Domain.Entities;
 using eEscola.Domain.Interfaces;
 
@@ -12,29 +13,32 @@ namespace eEscola.Application
             _alunoRepository = alunoRepository;
         }
 
-        public async Task<bool> Add(AlunoModel model)
+        public async Task<Result<bool>> Add(Aluno aluno)
         {
-            var aluno = new Aluno(model.Nome, model.CPF);
+            var result = await _alunoRepository.Add(aluno);
 
-            return await _alunoRepository.Add(aluno);
+            if (!result)
+                return Result<bool>.Error("Erro ao cadastrar Aluno");
+
+            return Result<bool>.Ok(result);
         }
 
-        public Task<bool> Delete(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> Edit(AlunoModel aluno)
+        public Task<Result<bool>> Delete(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Aluno>> GetAll()
+        public Task<Result<bool>> Edit(Aluno aluno)
         {
-            return _alunoRepository.GetAll();
+            throw new NotImplementedException();
         }
 
-        public Task<Aluno> GetById(int id)
+        public Task<Result<IEnumerable<Aluno>>> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Result<Aluno>> GetById(int id)
         {
             throw new NotImplementedException();
         }
