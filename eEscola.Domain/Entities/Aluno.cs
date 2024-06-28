@@ -7,6 +7,8 @@ namespace eEscola.Domain.Entities
         public string Nome { get; set; }
         public long CPF { get; set; }
 
+        public Aluno() { }
+
         public Aluno(string nome, long cpf)
         {
             Nome = nome;

@@ -19,7 +19,9 @@ namespace eEscola.API.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            return Ok(await _alunoApplication.GetAll());
+            var result = await _alunoApplication.GetAll();
+
+            return Ok(result.Object);
         }
 
         [HttpPost]
@@ -49,7 +51,7 @@ namespace eEscola.API.Controllers
             var result = await _alunoApplication.Edit(id, aluno);
 
             if (result.NotFound)
-                return NotFound(result.Notifications);
+                return NotFound();
 
             if (!result.Sucess)
                 return BadRequest(result.Notifications);
@@ -61,13 +63,13 @@ namespace eEscola.API.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             var result = await _alunoApplication.Delete(id);
-            
+
             if (result.NotFound)
-                return NotFound(result.Notifications);
+                return NotFound();
 
             if (!result.Sucess)
                 return BadRequest(result.Notifications);
-           
+
             return Ok("Aluno excluído com sucesso!");
         }
     }

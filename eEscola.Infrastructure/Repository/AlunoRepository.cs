@@ -51,7 +51,7 @@ namespace eEscola.Infrastructure.Repository
         {
             await using var conexao = new NpgsqlConnection("Server=localhost;Port=5432;Database=eEscola;User Id=postgres;Password=#C4l3b3018;");
 
-            var aluno = await conexao.QueryAsync<Aluno>("SELECT * FROM tb_aluno");
+            var aluno = await conexao.QueryAsync<Aluno>("SELECT id as Id, nome as Nome, cpf as CPF FROM tb_aluno");
 
             return aluno;
         }
