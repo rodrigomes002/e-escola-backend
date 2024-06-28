@@ -9,7 +9,7 @@ namespace eEscola.Application
         Task<Result<IEnumerable<Aluno>>> GetAll();
         Task<Result<Aluno>> GetById(int id);
         Task<Result<bool>> Add(Aluno aluno);
-        Task<Result<bool>> Edit(Aluno aluno);
+        Task<Result<bool>> Edit(int id, Aluno aluno);
         Task<Result<bool>> Delete(int id);
     }
 }

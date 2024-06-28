@@ -1,5 +1,4 @@
-﻿using eEscola.Application.Models;
-using eEscola.Application.Results;
+﻿using eEscola.Application.Results;
 using eEscola.Domain.Entities;
 using eEscola.Domain.Interfaces;
 
@@ -18,29 +17,59 @@ namespace eEscola.Application
             var result = await _alunoRepository.Add(aluno);
 
             if (!result)
-                return Result<bool>.Error("Erro ao cadastrar Aluno");
+                return Result<bool>.Error("Erro ao cadastrar aluno");
 
             return Result<bool>.Ok(result);
         }
 
-        public Task<Result<bool>> Delete(int id)
+        public async Task<Result<bool>> Delete(int id)
         {
-            throw new NotImplementedException();
+            var alunoDb = await _alunoRepository.GetById(id);
+
+            if (alunoDb is null)
+                return Result<bool>.NotFoundResult();
+
+            var result = await _alunoRepository.Delete(id);
+
+            if (!result)
+                return Result<bool>.Error("Erro ao deletar aluno");
+
+            return Result<bool>.Ok(result);
         }
 
-        public Task<Result<bool>> Edit(Aluno aluno)
+        public async Task<Result<bool>> Edit(int id, Aluno aluno)
         {
-            throw new NotImplementedException();
+            var alunoDb = await _alunoRepository.GetById(id);
+
+            if (alunoDb is null)
+                return Result<bool>.NotFoundResult();
+
+            alunoDb.Nome = aluno.Nome;
+            alunoDb.CPF = aluno.CPF;
+
+            var result = await _alunoRepository.Edit(alunoDb);
+
+            if (!result)
+                return Result<bool>.Error("Erro ao atualizar aluno");
+
+            return Result<bool>.Ok(result);
         }
 
-        public Task<Result<IEnumerable<Aluno>>> GetAll()
+        public async Task<Result<IEnumerable<Aluno>>> GetAll()
         {
-            throw new NotImplementedException();
+            var alunos = await _alunoRepository.GetAll();
+
+            return Result<IEnumerable<Aluno>>.Ok(alunos);
         }
 
-        public Task<Result<Aluno>> GetById(int id)
+        public async Task<Result<Aluno>> GetById(int id)
         {
-            throw new NotImplementedException();
+            var aluno = await _alunoRepository.GetById(id);
+
+            if (aluno is null)
+                return Result<Aluno>.NotFoundResult();
+
+            return Result<Aluno>.Ok(aluno);
         }
     }
 }

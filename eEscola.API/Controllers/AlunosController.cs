@@ -38,33 +38,37 @@ namespace eEscola.API.Controllers
             return Ok($"Aluno {aluno.Nome} cadastrado com sucesso!");
         }
 
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> Put(int id, [FromBody] AlunoModel aluno)
-        //{
-        //    var alunoDb = await _alunoApplication.GetById(id);
-        //    alunoDb.Nome = aluno.Nome;
-        //    aluno.CPF = alunoDb.CPF;
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(int id, [FromBody] AlunoModel model)
+        {
+            var aluno = new Aluno(model.Nome, model.CPF);
 
-        //    if (await _alunoApplication.Edit(alunoDb))
-        //    {
-        //        return Ok("Update realizado com sucesso!");
-        //    }
+            if (!aluno.IsValid)
+                return BadRequest(aluno.Notifications);
 
-        //    return BadRequest();
-        //}
+            var result = await _alunoApplication.Edit(id, aluno);
+
+            if (result.NotFound)
+                return NotFound(result.Notifications);
+
+            if (!result.Sucess)
+                return BadRequest(result.Notifications);
+
+            return Ok("Update realizado com sucesso!");
+        }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var alunoDb = await _alunoApplication.GetById(id);
+            var result = await _alunoApplication.Delete(id);
+            
+            if (result.NotFound)
+                return NotFound(result.Notifications);
 
-            if (alunoDb is not null)
-            {
-                await _alunoApplication.Delete(id);
-                return Ok("Excluído com sucesso!");
-            }
-
-            return BadRequest();
+            if (!result.Sucess)
+                return BadRequest(result.Notifications);
+           
+            return Ok("Aluno excluído com sucesso!");
         }
     }
 }

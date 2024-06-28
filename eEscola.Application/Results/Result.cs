@@ -15,7 +15,7 @@ namespace eEscola.Application.Results
 
         private Result(IReadOnlyCollection<Notification> notifications, bool notFound = false)
         {
-            Object = default;
+            Object = default!;
             NotFound = notFound;
             AddNotifications(notifications);
         }
