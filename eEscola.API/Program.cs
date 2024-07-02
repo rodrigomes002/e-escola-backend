@@ -14,7 +14,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IAlunoRepository, AlunoRepository>();
 builder.Services.AddScoped<IAlunoApplication, AlunoApplication>();
-//builder.Services.AddScoped<IEscolaRepository, EscolaRepository>();
+builder.Services.AddScoped<IEscolaRepository, EscolaRepository>();
+builder.Services.AddScoped<IEscolaApplication, EscolaApplication>();
 builder.Services.AddScoped<IProfessorRepository, ProfessorRepository>();
 builder.Services.AddScoped<IProfessorApplication, ProfessorApplication>();
 builder.Services.AddScoped<IDisciplinaRepository, DisciplinaRepository>();

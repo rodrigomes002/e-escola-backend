@@ -1,64 +1,74 @@
-﻿using eEscola.API.Interfaces;
-using eEscola.API.Models;
+﻿using eEscola.API.Controllers.Base;
+using eEscola.Application.Interfaces;
+using eEscola.Application.Models;
+using eEscola.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eEscola.API.Controllers
 {
     [Route("api/escolas")]
     [ApiController]
-    public class EscolasController : ControllerBase
+    public class EscolasController : BaseController
     {
-        private readonly IEscolaRepository _escolaRepository;
+        private readonly IEscolaApplication _escolaApplication;
 
-        public EscolasController(IEscolaRepository escolaRepository)
+        public EscolasController(IEscolaApplication escolaApplication)
         {
-            _escolaRepository = escolaRepository;
+            _escolaApplication = escolaApplication;
         }
 
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            return Ok(await _escolaRepository.GetAll());
+            var result = await _escolaApplication.GetAll();
+
+            return Ok(result.Object);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] Escola escola)
+        public async Task<IActionResult> Post([FromBody] EscolaModel model)
         {
-            if (await _escolaRepository.Add(escola))
-            {
-                return Ok("Cadastro realizado com sucesso!");
-            }
+            var escola = new Escola(model.Nome, model.CNPJ);
 
-            return BadRequest();
+            if (!escola.IsValid)
+                return BadRequest(escola.Notifications);
+
+            var result = await _escolaApplication.Add(escola);
+
+            if (!result.Sucess)
+                return BadRequest(escola.Notifications);
+
+            return Ok($"Escola {escola.Nome} cadastrado com sucesso!");
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] Escola escola)
+        public async Task<IActionResult> Put(int id, [FromBody] EscolaModel model)
         {
-            var escolaDb = await _escolaRepository.GetById(id);
-            escolaDb.Nome = escola.Nome;
-            escolaDb.CNPJ = escola.CNPJ;
+            var escola = new Escola(model.Nome, model.CNPJ);
 
-            if (await _escolaRepository.Edit(escolaDb))
-            {
-                return Ok("Update realizado com sucesso!");
-            }
+            if (!escola.IsValid)
+                return BadRequest(escola.Notifications);
 
-            return BadRequest();
+            var result = await _escolaApplication.Edit(id, escola);
+
+            if (!result.Sucess)
+                return BadRequest(escola.Notifications);
+
+            return Ok("Update realizado com sucesso!");
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var escolaDb = await _escolaRepository.GetById(id);
+            var result = await _escolaApplication.Delete(id);
 
-            if (escolaDb is not null)
-            {
-                await _escolaRepository.Delete(id);
-                return Ok("Excluído com sucesso!");
-            }
+            if (result.NotFound)
+                return NotFound();
 
-            return BadRequest();
+            if (!result.Sucess)
+                return BadRequest(result.Notifications);
+
+            return Ok("Escola excluída com sucesso!");
         }
     }
 }

@@ -59,19 +59,19 @@ namespace eEscola.Application
 
         public async Task<Result<IEnumerable<Disciplina>>> GetAll()
         {
-            var result = await _disciplinaRepository.GetAll();
+            var disciplinas = await _disciplinaRepository.GetAll();
 
-            return Result<IEnumerable<Disciplina>>.Ok(result);
+            return Result<IEnumerable<Disciplina>>.Ok(disciplinas);
         }
 
         public async Task<Result<Disciplina>> GetById(int id)
         {
-            var result = await _disciplinaRepository.GetById(id);
+            var disciplina = await _disciplinaRepository.GetById(id);
 
-            if (result is null)
+            if (disciplina is null)
                 return Result<Disciplina>.NotFoundResult();
 
-            return Result<Disciplina>.Ok(result);
+            return Result<Disciplina>.Ok(disciplina);
         }
     }
 }

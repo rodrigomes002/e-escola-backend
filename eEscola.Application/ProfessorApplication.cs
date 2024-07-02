@@ -56,9 +56,9 @@ namespace eEscola.Application
 
         public async Task<Result<IEnumerable<Professor>>> GetAll()
         {
-            var result = await _professorRepository.GetAll();
+            var professores = await _professorRepository.GetAll();
 
-            return Result<IEnumerable<Professor>>.Ok(result);
+            return Result<IEnumerable<Professor>>.Ok(professores);
         }
 
         public async Task<Result<Professor>> GetById(int id)
