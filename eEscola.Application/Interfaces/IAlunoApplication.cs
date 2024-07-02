@@ -1,8 +1,7 @@
-﻿using eEscola.Application.Models;
-using eEscola.Application.Results;
+﻿using eEscola.Application.Results;
 using eEscola.Domain.Entities;
 
-namespace eEscola.Application
+namespace eEscola.Application.Interfaces
 {
     public interface IAlunoApplication
     {

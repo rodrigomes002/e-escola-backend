@@ -1,4 +1,5 @@
-﻿using eEscola.Application.Results;
+﻿using eEscola.Application.Interfaces;
+using eEscola.Application.Results;
 using eEscola.Domain.Entities;
 using eEscola.Domain.Interfaces;
 
@@ -7,6 +8,7 @@ namespace eEscola.Application
     public class AlunoApplication : IAlunoApplication
     {
         private readonly IAlunoRepository _alunoRepository;
+
         public AlunoApplication(IAlunoRepository alunoRepository)
         {
             _alunoRepository = alunoRepository;

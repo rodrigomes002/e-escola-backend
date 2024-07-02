@@ -1,5 +1,5 @@
 ﻿using eEscola.API.Controllers.Base;
-using eEscola.Application;
+using eEscola.Application.Interfaces;
 using eEscola.Application.Models;
 using eEscola.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +11,7 @@ namespace eEscola.API.Controllers
     public class AlunosController : BaseController
     {
         private readonly IAlunoApplication _alunoApplication;
+
         public AlunosController(IAlunoApplication alunoApplication)
         {
             _alunoApplication = alunoApplication;

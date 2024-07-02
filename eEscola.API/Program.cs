@@ -1,4 +1,5 @@
 using eEscola.Application;
+using eEscola.Application.Interfaces;
 using eEscola.Domain.Interfaces;
 using eEscola.Infrastructure.Repository;
 
@@ -14,9 +15,11 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IAlunoRepository, AlunoRepository>();
 builder.Services.AddScoped<IAlunoApplication, AlunoApplication>();
 //builder.Services.AddScoped<IEscolaRepository, EscolaRepository>();
-//builder.Services.AddScoped<IProfessorRepository, ProfessorRepository>();
+builder.Services.AddScoped<IProfessorRepository, ProfessorRepository>();
+builder.Services.AddScoped<IProfessorApplication, ProfessorApplication>();
 //builder.Services.AddScoped<IDisciplinaRepository, DisciplinaRepository>();
-//builder.Services.AddScoped<IBoletimRepository, BoletimRepository>();
+builder.Services.AddScoped<IBoletimRepository, BoletimRepository>();
+builder.Services.AddScoped<IBoletimApplication, BoletimApplication>();
 
 var app = builder.Build();
 

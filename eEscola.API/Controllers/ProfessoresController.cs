@@ -1,62 +1,77 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using eEscola.API.Controllers.Base;
+using eEscola.Application.Interfaces;
+using eEscola.Application.Models;
+using eEscola.Domain.Entities;
+using Microsoft.AspNetCore.Mvc;
 
 namespace eEscola.API.Controllers
 {
     [Route("api/professores")]
     [ApiController]
-    public class ProfessoresController : ControllerBase
+    public class ProfessoresController : BaseController
     {
-        private readonly IProfessorRepository _professorRepository;
+        private readonly IProfessorApplication _professorApplication;
 
-        public ProfessoresController(IProfessorRepository professorRepository)
+        public ProfessoresController(IProfessorApplication professorApplication)
         {
-            _professorRepository = professorRepository;
+            _professorApplication = professorApplication;
         }
 
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            return Ok(await _professorRepository.GetAll());
+            var result = await _professorApplication.GetAll();
+
+            return Ok(result.Object);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] Professor professor)
+        public async Task<IActionResult> Post([FromBody] ProfessorModel model)
         {
-            if (await _professorRepository.Add(professor))
-            {
-                return Ok("Cadastro realizado com sucesso!");
-            }
+            var professor = new Professor(model.Nome, model.CPF);
 
-            return BadRequest();
+            if (!professor.IsValid)
+                return BadRequest(professor.Notifications);
+
+            var result = await _professorApplication.Add(professor);
+
+            if (!result.Sucess)
+                return BadRequest(result.Notifications);
+
+            return Ok($"Professor {professor.Nome} cadastrado com sucesso!");
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] Professor professor)
+        public async Task<IActionResult> Put(int id, [FromBody] ProfessorModel model)
         {
-            var professorDb = await _professorRepository.GetById(id);
-            professorDb.Nome = professor.Nome;
-            professorDb.CPF = professor.CPF;
+            var professor = new Professor(model.Nome, model.CPF);
 
-            if (await _professorRepository.Edit(professorDb))
-            {
-                return Ok("Update realizado com sucesso!");
-            }
+            if (!professor.IsValid)
+                return BadRequest(professor.Notifications);
 
-            return BadRequest();
+            var result = await _professorApplication.Edit(id, professor);
+
+            if (result.NotFound)
+                return NotFound();
+
+            if (!result.Sucess)
+                return BadRequest(result.Notifications);
+
+            return Ok("Update realizado com sucesso!");
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var professorDb = await _professorRepository.GetById(id);
+            var result = await _professorApplication.Delete(id);
 
-            if (professorDb is not null)
-            {
-                await _professorRepository.Delete(id);
-                return Ok("Excluído com sucesso!");
-            }
+            if (result.NotFound)
+                return NotFound();
 
-            return BadRequest();
+            if (!result.Sucess)
+                return BadRequest(result.Notifications);
+
+            return Ok("Professor excluído com sucesso!");
         }
     }
 }

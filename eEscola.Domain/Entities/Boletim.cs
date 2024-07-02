@@ -1,4 +1,5 @@
-﻿using eEscola.Domain.Entities.Enums;
+﻿using eEscola.Domain.Entities.Base;
+using eEscola.Domain.Entities.Enums;
 
 namespace eEscola.Domain.Entities
 {

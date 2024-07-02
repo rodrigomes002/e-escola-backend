@@ -1,6 +1,6 @@
 ﻿using Flunt.Notifications;
 
-namespace eEscola.Domain.Entities
+namespace eEscola.Domain.Entities.Base
 {
     public class Entity : Notifiable<Notification>
     {

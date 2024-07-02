@@ -1,4 +1,5 @@
-﻿using Flunt.Validations;
+﻿using eEscola.Domain.Entities.Base;
+using Flunt.Validations;
 
 namespace eEscola.Domain.Entities
 {

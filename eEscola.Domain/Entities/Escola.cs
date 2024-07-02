@@ -1,4 +1,6 @@
-﻿namespace eEscola.Domain.Entities
+﻿using eEscola.Domain.Entities.Base;
+
+namespace eEscola.Domain.Entities
 {
     public class Escola : Entity
     {
