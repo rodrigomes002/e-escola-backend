@@ -1,24 +1,27 @@
-﻿using eEscola.API.Interfaces;
-using Microsoft.AspNetCore.Http;
+﻿using eEscola.API.Controllers.Base;
+using eEscola.Application;
+using eEscola.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eEscola.API.Controllers
 {
     [Route("api/boletins")]
     [ApiController]
-    public class BoletinsController : ControllerBase
+    public class BoletinsController : BaseController
     {
-        private readonly IBoletimRepository _boletimRepository;
+        private readonly IBoletimApplication _boletimApplication;
 
-        public BoletinsController(IBoletimRepository boletimRepository)
+        public BoletinsController(IBoletimApplication boletimApplication)
         {
-            _boletimRepository = boletimRepository;
+            _boletimApplication = boletimApplication;
         }
 
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            return Ok(await _boletimRepository.GetAll());
+            var result = await _boletimApplication.GetAll();
+
+            return Ok(result.Object);
         }
     }
 }

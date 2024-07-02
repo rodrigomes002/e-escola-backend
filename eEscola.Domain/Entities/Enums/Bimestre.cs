@@ -1,4 +1,4 @@
-﻿namespace eEscola.API.Models.Enums
+﻿namespace eEscola.Domain.Entities.Enums
 {
     public enum Bimestre
     {

@@ -1,5 +1,7 @@
-using eEscola.API.Interfaces;
-using eEscola.API.Repository;
+using eEscola.Application;
+using eEscola.Application.Interfaces;
+using eEscola.Domain.Interfaces;
+using eEscola.Infrastructure.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,11 +12,16 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<IEscolaRepository, EscolaRepository>();
 builder.Services.AddScoped<IAlunoRepository, AlunoRepository>();
+builder.Services.AddScoped<IAlunoApplication, AlunoApplication>();
+builder.Services.AddScoped<IEscolaRepository, EscolaRepository>();
+builder.Services.AddScoped<IEscolaApplication, EscolaApplication>();
 builder.Services.AddScoped<IProfessorRepository, ProfessorRepository>();
+builder.Services.AddScoped<IProfessorApplication, ProfessorApplication>();
 builder.Services.AddScoped<IDisciplinaRepository, DisciplinaRepository>();
+builder.Services.AddScoped<IDisciplinaApplication, DisciplinaApplication>();
 builder.Services.AddScoped<IBoletimRepository, BoletimRepository>();
+builder.Services.AddScoped<IBoletimApplication, BoletimApplication>();
 
 var app = builder.Build();
 

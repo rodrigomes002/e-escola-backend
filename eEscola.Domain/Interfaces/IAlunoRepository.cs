@@ -1,6 +1,6 @@
-﻿using eEscola.API.Models;
+﻿using eEscola.Domain.Entities;
 
-namespace eEscola.API.Interfaces
+namespace eEscola.Domain.Interfaces
 {
     public interface IAlunoRepository
     {
