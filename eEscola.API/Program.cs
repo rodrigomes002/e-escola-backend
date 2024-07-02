@@ -17,7 +17,8 @@ builder.Services.AddScoped<IAlunoApplication, AlunoApplication>();
 //builder.Services.AddScoped<IEscolaRepository, EscolaRepository>();
 builder.Services.AddScoped<IProfessorRepository, ProfessorRepository>();
 builder.Services.AddScoped<IProfessorApplication, ProfessorApplication>();
-//builder.Services.AddScoped<IDisciplinaRepository, DisciplinaRepository>();
+builder.Services.AddScoped<IDisciplinaRepository, DisciplinaRepository>();
+builder.Services.AddScoped<IDisciplinaApplication, DisciplinaApplication>();
 builder.Services.AddScoped<IBoletimRepository, BoletimRepository>();
 builder.Services.AddScoped<IBoletimApplication, BoletimApplication>();
 

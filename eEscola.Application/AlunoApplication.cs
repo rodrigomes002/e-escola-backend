@@ -19,7 +19,7 @@ namespace eEscola.Application
             var result = await _alunoRepository.Add(aluno);
 
             if (!result)
-                return Result<bool>.Error("Erro ao cadastrar aluno");
+                return Result<bool>.Error("Erro ao cadastrar aluno.");
 
             return Result<bool>.Ok(result);
         }
@@ -34,7 +34,7 @@ namespace eEscola.Application
             var result = await _alunoRepository.Delete(id);
 
             if (!result)
-                return Result<bool>.Error("Erro ao deletar aluno");
+                return Result<bool>.Error("Erro ao deletar aluno.");
 
             return Result<bool>.Ok(result);
         }
@@ -52,7 +52,7 @@ namespace eEscola.Application
             var result = await _alunoRepository.Edit(alunoDb);
 
             if (!result)
-                return Result<bool>.Error("Erro ao atualizar aluno");
+                return Result<bool>.Error("Erro ao atualizar aluno.");
 
             return Result<bool>.Ok(result);
         }
