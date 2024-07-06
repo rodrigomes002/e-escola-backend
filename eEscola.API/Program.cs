@@ -1,6 +1,7 @@
 using eEscola.Application;
 using eEscola.Application.Interfaces;
 using eEscola.Domain.Interfaces;
+using eEscola.Infrastructure.DbConfig;
 using eEscola.Infrastructure.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,6 +23,7 @@ builder.Services.AddScoped<IDisciplinaRepository, DisciplinaRepository>();
 builder.Services.AddScoped<IDisciplinaApplication, DisciplinaApplication>();
 builder.Services.AddScoped<IBoletimRepository, BoletimRepository>();
 builder.Services.AddScoped<IBoletimApplication, BoletimApplication>();
+builder.Services.AddSingleton<IConnectionStringConfiguration, ConnectionStringConfiguration>();
 
 var app = builder.Build();
 
