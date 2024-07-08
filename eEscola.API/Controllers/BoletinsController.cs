@@ -1,5 +1,4 @@
 ﻿using eEscola.API.Controllers.Base;
-using eEscola.Application;
 using eEscola.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 

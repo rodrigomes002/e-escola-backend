@@ -7,9 +7,15 @@ namespace eEscola.Infrastructure.Repository
 {
     public class BoletimRepository : IBoletimRepository
     {
+        private readonly IConnectionStringConfiguration _connectionStringConfiguration;
+
+        public BoletimRepository(IConnectionStringConfiguration connectionStringConfiguration)
+        {
+            _connectionStringConfiguration = connectionStringConfiguration;
+        }
         public async Task<IEnumerable<Boletim>> GetAll()
         {
-            await using var conexao = new NpgsqlConnection("Server=localhost;Port=5432;Database=eEscola;User Id=postgres;Password=#C4l3b3018;");
+            await using var conexao = new NpgsqlConnection(_connectionStringConfiguration.GetConnectionString());
 
             var boletim = await conexao.QueryAsync<Boletim, Aluno, Disciplina, Boletim>("SELECT * FROM tb_boletim as B " +
                                                             "INNER JOIN tb_aluno as A ON A.id = B.id_aluno " +
