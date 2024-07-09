@@ -1,64 +1,77 @@
-﻿using eEscola.API.Interfaces;
-using eEscola.API.Models;
-using Microsoft.AspNetCore.Http;
+﻿using eEscola.API.Controllers.Base;
+using eEscola.Application.Interfaces;
+using eEscola.Application.Models;
+using eEscola.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eEscola.API.Controllers
 {
     [Route("api/alunos")]
     [ApiController]
-    public class AlunosController : ControllerBase
+    public class AlunosController : BaseController
     {
-        private readonly IAlunoRepository _alunoRepository;
-        public AlunosController(IAlunoRepository alunoRepository)
+        private readonly IAlunoApplication _alunoApplication;
+
+        public AlunosController(IAlunoApplication alunoApplication)
         {
-            _alunoRepository = alunoRepository;
+            _alunoApplication = alunoApplication;
         }
 
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            return Ok(await _alunoRepository.GetAll());
+            var result = await _alunoApplication.GetAll();
+
+            return Ok(result.Object);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] Aluno aluno)
+        public async Task<IActionResult> Post([FromBody] AlunoModel model)
         {
-            if (await _alunoRepository.Add(aluno))
-            {
-                return Ok("Cadastro realizado com sucesso!");
-            }
+            var aluno = new Aluno(model.Nome, model.CPF);
 
-            return BadRequest();
+            if (!aluno.IsValid)
+                return BadRequest(aluno.Notifications);
+
+            var result = await _alunoApplication.Add(aluno);
+
+            if (!result.Sucess)
+                return BadRequest(result.Notifications);
+
+            return Ok($"Aluno {aluno.Nome} cadastrado com sucesso!");
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] Aluno aluno)
+        public async Task<IActionResult> Put(int id, [FromBody] AlunoModel model)
         {
-            var alunoDb = await _alunoRepository.GetById(id);
-            alunoDb.Nome = aluno.Nome;
-            aluno.CPF = alunoDb.CPF;
+            var aluno = new Aluno(model.Nome, model.CPF);
 
-            if (await _alunoRepository.Edit(alunoDb))
-            {
-                return Ok("Update realizado com sucesso!");
-            }
+            if (!aluno.IsValid)
+                return BadRequest(aluno.Notifications);
 
-            return BadRequest();
+            var result = await _alunoApplication.Edit(id, aluno);
+
+            if (result.NotFound)
+                return NotFound();
+
+            if (!result.Sucess)
+                return BadRequest(result.Notifications);
+
+            return Ok("Update realizado com sucesso!");
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var alunoDb = await _alunoRepository.GetById(id);
+            var result = await _alunoApplication.Delete(id);
 
-            if (alunoDb is not null)
-            {
-                await _alunoRepository.Delete(id);
-                return Ok("Excluído com sucesso!");
-            }
+            if (result.NotFound)
+                return NotFound();
 
-            return BadRequest();
+            if (!result.Sucess)
+                return BadRequest(result.Notifications);
+
+            return Ok("Aluno excluído com sucesso!");
         }
     }
 }

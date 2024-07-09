@@ -1,15 +1,22 @@
 ﻿using Dapper;
-using eEscola.API.Interfaces;
-using eEscola.API.Models;
+using eEscola.Domain.Entities;
+using eEscola.Domain.Interfaces;
 using Npgsql;
 
-namespace eEscola.API.Repository
+namespace eEscola.Infrastructure.Repository
 {
     public class ProfessorRepository : IProfessorRepository
     {
+        private readonly IConnectionStringConfiguration _connectionStringConfiguration;
+
+        public ProfessorRepository(IConnectionStringConfiguration connectionStringConfiguration)
+        {
+            _connectionStringConfiguration = connectionStringConfiguration;
+        }
+
         public async Task<bool> Add(Professor professor)
         {
-            await using var conexao = new NpgsqlConnection("Server=localhost;Port=5432;Database=eEscola;User Id=postgres;Password=#C4l3b3018;");
+            await using var conexao = new NpgsqlConnection(_connectionStringConfiguration.GetConnectionString());
 
             var param = new
             {
@@ -24,16 +31,16 @@ namespace eEscola.API.Repository
 
         public async Task<bool> Delete(int id)
         {
-            await using var conexao = new NpgsqlConnection("Server=localhost;Port=5432;Database=eEscola;User Id=postgres;Password=#C4l3b3018;");
+            await using var conexao = new NpgsqlConnection(_connectionStringConfiguration.GetConnectionString());
 
             int result = await conexao.ExecuteAsync("DELETE FROM tb_professor WHERE id=@Id", new { Id = id });
 
             return result > 0;
         }
 
-        public async Task<bool> Edit(Professor professor) 
+        public async Task<bool> Edit(Professor professor)
         {
-            await using var conexao = new NpgsqlConnection("Server=localhost;Port=5432;Database=eEscola;User Id=postgres;Password=#C4l3b3018;");
+            await using var conexao = new NpgsqlConnection(_connectionStringConfiguration.GetConnectionString());
 
             var param = new
             {
@@ -49,7 +56,7 @@ namespace eEscola.API.Repository
 
         public async Task<IEnumerable<Professor>> GetAll()
         {
-            await using var conexao = new NpgsqlConnection("Server=localhost;Port=5432;Database=eEscola;User Id=postgres;Password=#C4l3b3018;");
+            await using var conexao = new NpgsqlConnection(_connectionStringConfiguration.GetConnectionString());
 
             var professor = await conexao.QueryAsync<Professor>("SELECT * FROM tb_professor");
 
@@ -58,7 +65,7 @@ namespace eEscola.API.Repository
 
         public async Task<Professor> GetById(int id)
         {
-            await using var conexao = new NpgsqlConnection("Server=localhost;Port=5432;Database=eEscola;User Id=postgres;Password=#C4l3b3018;");
+            await using var conexao = new NpgsqlConnection(_connectionStringConfiguration.GetConnectionString());
 
             var professor = await conexao.QueryFirstOrDefaultAsync<Professor>("SELECT * FROM tb_professor WHERE id=@Id", new { Id = id });
 

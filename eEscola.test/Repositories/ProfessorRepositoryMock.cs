@@ -5,54 +5,54 @@ using Moq;
 
 namespace eEscola.Test.Repositories
 {
-    public class DisciplinaRepositoryMock : Mock<IDisciplinaRepository>
+    public class ProfessorRepositoryMock : Mock<IProfessorRepository>
     {
-        public DisciplinaRepositoryMock ProcurarDisplina()
+        public ProfessorRepositoryMock ProcurarProfessor()
         {
             Setup(repository => repository.GetAll())
-                .ReturnsAsync(DisciplinaMock.DisciplinaList())
+                .ReturnsAsync(ProfessorMock.ProfessorList)
                 .Verifiable();
 
             return this;
         }
 
-        public DisciplinaRepositoryMock CadastroDisciplina_Sucesso()
+        public ProfessorRepositoryMock CadastrarProfessor_Sucesso()
         {
-            Setup(repository => repository.Add(It.IsAny<Disciplina>()))
+            Setup(repository => repository.Add(It.IsAny<Professor>()))
                 .ReturnsAsync(true)
                 .Verifiable();
 
             return this;
         }
 
-        public DisciplinaRepositoryMock CadastroDisciplina_Falha()
+        public ProfessorRepositoryMock CadastrarProfessor_Falha()
         {
-            Setup(repository => repository.Add(It.IsAny<Disciplina>()))
+            Setup(repository => repository.Add(It.IsAny<Professor>()))
                 .ReturnsAsync(false)
                 .Verifiable();
 
             return this;
         }
 
-        public DisciplinaRepositoryMock EditarDisciplina_Sucesso()
+        public ProfessorRepositoryMock EditarProfessor_Sucesso()
         {
-            Setup(repository => repository.Edit(It.IsAny<Disciplina>()))
+            Setup(repository => repository.Edit(It.IsAny<Professor>()))
                 .ReturnsAsync(true)
                 .Verifiable();
 
             return this;
         }
 
-        public DisciplinaRepositoryMock EditarDisciplina_Falha()
+        public ProfessorRepositoryMock EditarProfessor_Falha()
         {
-            Setup(repository => repository.Edit(It.IsAny<Disciplina>()))
+            Setup(repository => repository.Edit(It.IsAny<Professor>()))
                 .ReturnsAsync(false)
                 .Verifiable();
 
             return this;
         }
 
-        public DisciplinaRepositoryMock DeletarDisciplina_Sucesso()
+        public ProfessorRepositoryMock DeletarProfessor_Sucesso()
         {
             Setup(repository => repository.Delete(It.IsAny<int>()))
                 .ReturnsAsync(true)
@@ -61,7 +61,7 @@ namespace eEscola.Test.Repositories
             return this;
         }
 
-        public DisciplinaRepositoryMock DeletarDisciplina_Falha()
+        public ProfessorRepositoryMock DeletarProfessor_Falha()
         {
             Setup(repository => repository.Delete(It.IsAny<int>()))
                 .ReturnsAsync(false)
@@ -70,19 +70,19 @@ namespace eEscola.Test.Repositories
             return this;
         }
 
-        public DisciplinaRepositoryMock ProcurarDisciplinaPorId_Sucesso()
+        public ProfessorRepositoryMock ProcurarPorIdProfessor_Sucesso()
         {
             Setup(repository => repository.GetById(It.IsAny<int>()))
-                .ReturnsAsync(DisciplinaMock.Disciplina())
+                .ReturnsAsync(ProfessorMock.Professor)
                 .Verifiable();
 
             return this;
         }
 
-        public DisciplinaRepositoryMock ProcurarDisciplinaPorId_Falha()
+        public ProfessorRepositoryMock ProcurarPorIdProfessor_Falha()
         {
             Setup(repository => repository.GetById(It.IsAny<int>()))
-                .ReturnsAsync(DisciplinaMock.DisciplinaNull())
+                .ReturnsAsync(ProfessorMock.ProfessorNull)
                 .Verifiable();
 
             return this;

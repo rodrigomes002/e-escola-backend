@@ -1,6 +1,6 @@
-﻿namespace eEscola.API.Models
+﻿namespace eEscola.Application.Models
 {
-    public class Disciplina
+    public class DisciplinaModel
     {
         public int Id { get; set; }
         public string Nome { get; set; }

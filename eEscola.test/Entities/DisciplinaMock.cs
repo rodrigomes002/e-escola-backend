@@ -1,11 +1,6 @@
 ﻿using eEscola.API.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace eEscola.test.Entities
+namespace eEscola.Test.Entities
 {
     public static class DisciplinaMock
     {
