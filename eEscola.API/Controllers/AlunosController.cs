@@ -2,10 +2,12 @@
 using eEscola.Application.Interfaces;
 using eEscola.Application.Models;
 using eEscola.Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eEscola.API.Controllers
 {
+    [Authorize]
     [Route("api/alunos")]
     [ApiController]
     public class AlunosController : BaseController
